@@ -2,9 +2,9 @@
 There's three files. One with the actual code (Simsims.py) one with a json "converter" (jsonprogram.py) and one json file (simsims.json) that stores what jsonprogram created.
 
 
-Description (Swedish):
+# Description (Swedish):
 
-#Bakgrund
+# Bakgrund
 För att studera flöden vill vi göra en simulering av en liten miniatyrvärld. Världen består av arbetare som jobbar, äter, sover och förökar sig. De bor i en värld av fabriker, åkrar, restauranger och hus.
 
 I simuleringen används en modifierad version av s.k. petrinät. Utan att fördjupa oss i dessa nät kan man nämna att petrinät är ett grafiskt och matematiskt modelleringsverktyg utvecklat av Carl Petri 1962. Näten består av platser (places),  övergångar (transitions) samt inkanaler och utkanaler (arcs) som förbinder platser och övergångar. På dessa nät flödar resurser (tokens). I platserna lagras eventuella resurser i väntan på att de behövs i en övergång. Övergångar hämtar en eller flera resurser på inkanaler från en eller flera platser. Dessa resurser behandlas sedan på ett bestämt sätt av övergången. Antingen förbrukas eller skickas resurser vidare eller så kan nya resurser skapas. De resurser som blir resultatet i en övergång skickas via utkanaler till en eller flera platser. En övergång kan enbart hämta och behandla resurser om samtliga resurser den kräver finns tillgängliga via övergångens inkanaler. 
@@ -30,21 +30,21 @@ Mat produceras i åkernoder och äts av arbetare. Mat kan ha olika kvalitet.
 Produkter produceras i fabriksnoder och förbrukas av arbetare.
 
 
-#Platser (Places)
+# Platser (Places)
 I platser väntar resurser i väntan på att de efterfrågas i någon övergång. Till platserna kan ett obegränsat antal inkanaler och utkanaler kopplas. Respektive behållare kan enbart lagra resurser av en i förväg bestämd typ.
 
-#Vägar (Roads) kallas de noder där arbetare väntar. Att vara ute på vägarna gillar inte arbetare då där bildas köer. Ju längre kön är desto mer känner de hur livskraften rinner ur dem.
+# Vägar (Roads) kallas de noder där arbetare väntar. Att vara ute på vägarna gillar inte arbetare då där bildas köer. Ju längre kön är desto mer känner de hur livskraften rinner ur dem.
 
 Kommentar: För att förenkla kan man tänka sig att en arbetare förlorar livskraft i och med att denne läggs till i platsen, ju fler som redan finns på vägen (platsen) desto mer minskar arbetarens livskraft. Om arbetaren då dör läggs den inte till i kön. Vägen ska alltså fungera som en kö för arbetarna (FIFO - först in, först ut).
 
 
-#Lador (Barns) lagrar mat. Mat förbrukas i form av en kö (FIFO - först in, först ut).
+# Lador (Barns) lagrar mat. Mat förbrukas i form av en kö (FIFO - först in, först ut).
 
 
 
-#Lager (Storage) lagrar produkter. Produkter förbrukas i form av en stack (LIFO - sist in, först ut ut).
+# Lager (Storage) lagrar produkter. Produkter förbrukas i form av en stack (LIFO - sist in, först ut ut).
 
-#Övergångar (Transitions)
+# Övergångar (Transitions)
 Övergångar har ett fixt antal inkanaler. Via inkanalerna bevakar övergångar de platser som inkanalerna är kopplade till. När platserna har de resurser som krävs hämtas de via inkanalen. Väl inne i övergången sker den process som respektive övergång är konstruerad för. När övergången är klar skickar den eventuella resurser via kopplade utkanaler till en eller flera platser.
 
 Fabriker producerar produkter av en arbetare. Det tar längre tid för en arbetare med låg livskraft att färdigställa en produkt än för en arbetare med god livskraft. Livet i fabriken är inte heller en dans på rosor utan skadligt och medan arbetaren befinner sig i fabriken minskas dennes livskraft vilket också kan variera mellan olika fabriker. Rätt vad det är kan också olyckor ske där den arme arbetaren dödas. Input till en fabrik är en arbetare och output är en produkt och en arbetare (om denne överlevt).
@@ -60,6 +60,6 @@ Matsalar används för att ge arbetarna mat efter hårt arbete. De känner hur l
 Hus. Hem ljuva hem. Hemma i husen tar man igen sig och har skoj mellan lakanen. Är en arbetare ensam i huset tar denne enbart igen sig och vilar en stund medan dennes livskraft ökar en smula. Kommer det in två arbetare samtidigt finns det däremot ingen tid till vila och livskraften ökar inte, däremot finns det chans till att de tu blir tre. Vid varje besök av en eller två arbetare förbrukas en produkt. Input till ett hus är en eller två arbetare samt en produkt och output är en till tre arbetare. Observera att en arbetare inte har tid att vänta på ytterligare arbetare utan båda måste i så fall komma in i huset samtidigt som produkten.
 
 
-#Simulering
+# Simulering
 Man barjar med att bygga upp ett simuleringsnät där platser och övergångar kopplas samman med kanaler. Flera olika komponenter av samma sort kan (ska) användas till att bygga stora nät. Resurser kan initialt enbart läggas i platserna. Efter att ett nät är uppbyggt kan simuleringen börja och den fortsätter så länge som det finns arbetare kvar i nätet. Nedan visas ett exempel där det finns ett lager, två vägar, två lador, två fabriker, två fält, tre matsalar, och fyra hus.
 
