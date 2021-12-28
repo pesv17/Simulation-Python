@@ -1,6 +1,6 @@
 # Simulation-Python
 There's three files. One with the actual code (Simsims.py) one with a json "converter" (jsonprogram.py) and one json file (simsims.json) that stores what jsonprogram created.
-
+There's two predetermined scenarios in jsonprogram.py, these can be changed accordingly. The idea is to use these scenarios to run the simulation within Simsims.py and then the outcome will be stored in simsims.json.
 
 # Description (Swedish):
 
